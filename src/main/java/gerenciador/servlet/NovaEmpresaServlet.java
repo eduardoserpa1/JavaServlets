@@ -3,12 +3,13 @@ package gerenciador.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-//@WebServlet("/novaEmpresa")
+//@WebServlet(urlPatterns = "/novaEmpresa")
 public class NovaEmpresaServlet extends jakarta.servlet.http.HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -32,7 +33,9 @@ public class NovaEmpresaServlet extends jakarta.servlet.http.HttpServlet {
 		
 		banco.adiciona(empresa);
 		
-		out.println("<html><body>Empresa " + nomeEmpresa + " cadastrada com sucesso!</body></html>");
+		RequestDispatcher rd = request.getRequestDispatcher("/novaEmpresaCriada.jsp");
+		request.setAttribute("empresa", empresa.getNome());
+		rd.forward(request, response);
 		
 	}
 
